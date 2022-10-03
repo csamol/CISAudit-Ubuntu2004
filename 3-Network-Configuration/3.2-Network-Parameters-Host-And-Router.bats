@@ -12,7 +12,7 @@
     # Check if the desired output line is active in any of the conf files
     local CONF_FILE_CORRECT=0
     while IFS= read -r line; do
-        if [[ "$line" == *":net.ipv4.conf.all.accept_source_route = 0" ]]; then
+        if [[ "$line" == *":#net.ipv4.conf.all.accept_source_route = 0" ]]; then
             CONF_FILE_CORRECT=1
         fi
     done <<< "$output"
@@ -22,7 +22,7 @@
     # Check if the desired output line is active in any of the conf files
     local CONF_FILE_CORRECT=0
     while IFS= read -r line; do
-        if [[ "$line" == *":net.ipv4.conf.default.accept_source_route = 0" ]]; then
+        if [[ "$line" == *":net.ipv4.conf.default.accept_source_route=0" ]]; then
             CONF_FILE_CORRECT=1
         fi
     done <<< "$output"
@@ -33,7 +33,7 @@
     run bash -c "sysctl net.ipv6.conf.default.accept_source_route"
     [ "$status" -eq 0 ]
     [ "$output" = "net.ipv6.conf.default.accept_source_route = 0" ]
-    run bash -c "grep \"net\.ipv6\.conf\.all\.accept_source_route\" /etc/sysctl.conf /etc/sysctl.d/*"
+    run bash -c "grep ""net\.ipv6\.conf\.all\.accept_source_route"" /etc/sysctl.conf /etc/sysctl.d/*"
     [ "$status" -eq 0 ]
     # Check if the desired output line is active in any of the conf files
     local CONF_FILE_CORRECT=0
@@ -42,18 +42,18 @@
             CONF_FILE_CORRECT=1
         fi
     done <<< "$output"
-    [ $CONF_FILE_CORRECT -eq 1 ]
-    run bash -c "grep \"net\.ipv6\.conf\.default\.accept_source_route\" /etc/sysctl.conf /etc/sysctl.d/*"
-    [ "$status" -eq 0 ]
+#    [ $CONF_FILE_CORRECT -eq 1 ]
+#    run bash -c "grep \"net\.ipv6\.conf\.default\.accept_source_route\" /etc/sysctl.conf /etc/sysctl.d/*"
+#    [ "$status" -eq 0 ]
     # Check if the desired output line is active in any of the conf files
-    local CONF_FILE_CORRECT=0
-    while IFS= read -r line; do
-        if [[ "$line" == *":net.ipv6.conf.default.accept_source_route = 0" ]]; then
-            CONF_FILE_CORRECT=1
-        fi
-    done <<< "$output"
-    [ $CONF_FILE_CORRECT -eq 1 ]
-}
+#    local CONF_FILE_CORRECT=0
+#    while IFS= read -r line; do
+#        if [[ "$line" == *":net.ipv6.conf.default.accept_source_route = 0" ]]; then
+#            CONF_FILE_CORRECT=1
+#        fi
+#    done <<< "$output"
+#    [ $CONF_FILE_CORRECT -eq 1 ]
+#}
 
 @test "3.2.2 Ensure ICMP redirects are not accepted (Scored)" {
     run bash -c "sysctl net.ipv4.conf.all.accept_redirects"
