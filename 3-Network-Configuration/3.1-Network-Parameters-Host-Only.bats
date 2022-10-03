@@ -7,7 +7,7 @@
     run bash -c "sysctl net.ipv4.conf.default.send_redirects"
     [ "$status" -eq 0 ]
     [ "$output" = "net.ipv4.conf.default.send_redirects = 0" ]
-    run bash -c "grep \"net\.ipv4\.conf\.all\.send_redirects\" /etc/sysctl.conf /etc/sysctl.d/*"
+    run bash -c "grep -E ""^\s*net\.ipv4\.conf\.all\.send_redirects"" /etc/sysctl.conf /etc/sysctl.d/*"
     [ "$status" -eq 0 ]
     # Check if the desired output line is active in any of the conf files
     local CONF_FILE_CORRECT=0
@@ -17,7 +17,7 @@
         fi
     done <<< "$output"
     [ $CONF_FILE_CORRECT -eq 1 ]
-    run bash -c "grep \"net\.ipv4\.conf\.default\.send_redirects\" /etc/sysctl.conf /etc/sysctl.d/*"
+    run bash -c "grep -E ""^\s*net\.ipv4\.conf\.default\.send_redirects"" /etc/sysctl.conf /etc/sysctl.d/*"
     [ "$status" -eq 0 ]
     # Check if the desired output line is active in any of the conf files
     local CONF_FILE_CORRECT=0
