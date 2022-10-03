@@ -12,7 +12,7 @@
     # Check if the desired output line is active in any of the conf files
     local CONF_FILE_CORRECT=0
     while IFS= read -r line; do
-        if [[ "$line" == *":net.ipv4.conf.all.send_redirects = 0" ]]; then
+        if [[ "$line" == *":net.ipv4.conf.all.send_redirects=0" ]]; then
             CONF_FILE_CORRECT=1
         fi
     done <<< "$output"
@@ -22,7 +22,7 @@
     # Check if the desired output line is active in any of the conf files
     local CONF_FILE_CORRECT=0
     while IFS= read -r line; do
-        if [[ "$line" == *":net.ipv4.conf.default.send_redirects = 0" ]]; then
+        if [[ "$line" == *":net.ipv4.conf.default.send_redirects=0" ]]; then
             CONF_FILE_CORRECT=1
         fi
     done <<< "$output"
