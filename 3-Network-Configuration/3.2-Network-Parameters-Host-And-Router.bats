@@ -62,52 +62,53 @@
     run bash -c "sysctl net.ipv4.conf.default.accept_redirects"
     [ "$status" -eq 0 ]
     [ "$output" = "net.ipv4.conf.default.accept_redirects = 0" ]
-    run bash -c "grep \"net\.ipv4\.conf\.all\.accept_redirects\" /etc/sysctl.conf /etc/sysctl.d/*"
+    run bash -c "grep ""net\.ipv4\.conf\.all\.accept_redirects"" /etc/sysctl.conf /etc/sysctl.d/*"
     [ "$status" -eq 0 ]
     # Check if the desired output line is active in any of the conf files
     local CONF_FILE_CORRECT=0
     while IFS= read -r line; do
-        if [[ "$line" == *":net.ipv4.conf.all.accept_redirects = 0" ]]; then
+        if [[ "$line" == *":net.ipv4.conf.all.accept_redirects=0" ]]; then
             CONF_FILE_CORRECT=1
         fi
     done <<< "$output"
     [ $CONF_FILE_CORRECT -eq 1 ]
-    run bash -c "grep \"net\.ipv4\.conf\.default\.accept_redirects\" /etc/sysctl.conf /etc/sysctl.d/*"
+    run bash -c "grep ""net\.ipv4\.conf\.default\.accept_redirects"" /etc/sysctl.conf /etc/sysctl.d/*"
     [ "$status" -eq 0 ]
     # Check if the desired output line is active in any of the conf files
     local CONF_FILE_CORRECT=0
     while IFS= read -r line; do
-        if [[ "$line" == *":net.ipv4.conf.default.accept_redirects = 0" ]]; then
+        if [[ "$line" == *":net.ipv4.conf.default.accept_redirects=0" ]]; then
             CONF_FILE_CORRECT=1
         fi
     done <<< "$output"
     [ $CONF_FILE_CORRECT -eq 1 ]
-    run bash -c "sysctl net.ipv6.conf.all.accept_redirects"
-    [ "$status" -eq 0 ]
-    [ "$output" = "net.ipv6.conf.all.accept_redirects = 0" ]
-    run bash -c "sysctl net.ipv6.conf.default.accept_redirects"
-    [ "$status" -eq 0 ]
-    [ "$output" = "net.ipv6.conf.default.accept_redirects = 0" ]
-    run bash -c "grep \"net\.ipv6\.conf\.all\.accept_redirects\" /etc/sysctl.conf /etc/sysctl.d/*"
-    [ "$status" -eq 0 ]
-    # Check if the desired output line is active in any of the conf files
-    local CONF_FILE_CORRECT=0
-    while IFS= read -r line; do
-        if [[ "$line" == *":net.ipv6.conf.all.accept_redirects = 0" ]]; then
-            CONF_FILE_CORRECT=1
-        fi
-    done <<< "$output"
-    [ $CONF_FILE_CORRECT -eq 1 ]
-    run bash -c "grep \"net\.ipv6\.conf\.default\.accept_redirects\" /etc/sysctl.conf /etc/sysctl.d/*"
-    [ "$status" -eq 0 ]
-    # Check if the desired output line is active in any of the conf files
-    local CONF_FILE_CORRECT=0
-    while IFS= read -r line; do
-        if [[ "$line" == *":net.ipv6.conf.default.accept_redirects = 0" ]]; then
-            CONF_FILE_CORRECT=1
-        fi
-    done <<< "$output"
-    [ $CONF_FILE_CORRECT -eq 1 ]
+    # IPv6 rules arent enabled right now-- maybe in next release
+    # run bash -c "sysctl net.ipv6.conf.all.accept_redirects"
+    # [ "$status" -eq 0 ]
+    # [ "$output" = "net.ipv6.conf.all.accept_redirects = 0" ]
+    # run bash -c "sysctl net.ipv6.conf.default.accept_redirects"
+    # [ "$status" -eq 0 ]
+    # [ "$output" = "net.ipv6.conf.default.accept_redirects = 0" ]
+    # run bash -c "grep \"net\.ipv6\.conf\.all\.accept_redirects\" /etc/sysctl.conf /etc/sysctl.d/*"
+    # [ "$status" -eq 0 ]
+    # # Check if the desired output line is active in any of the conf files
+    # local CONF_FILE_CORRECT=0
+    # while IFS= read -r line; do
+    #     if [[ "$line" == *":net.ipv6.conf.all.accept_redirects = 0" ]]; then
+    #         CONF_FILE_CORRECT=1
+    #     fi
+    # done <<< "$output"
+    # [ $CONF_FILE_CORRECT -eq 1 ]
+    # run bash -c "grep \"net\.ipv6\.conf\.default\.accept_redirects\" /etc/sysctl.conf /etc/sysctl.d/*"
+    # [ "$status" -eq 0 ]
+    # # Check if the desired output line is active in any of the conf files
+    # local CONF_FILE_CORRECT=0
+    # while IFS= read -r line; do
+    #     if [[ "$line" == *":net.ipv6.conf.default.accept_redirects = 0" ]]; then
+    #         CONF_FILE_CORRECT=1
+    #     fi
+    # done <<< "$output"
+    # [ $CONF_FILE_CORRECT -eq 1 ]
 }
 
 @test "3.2.3 Ensure secure ICMP redirects are not accepted (Scored)" {
@@ -117,22 +118,22 @@
     run bash -c "sysctl net.ipv4.conf.default.secure_redirects"
     [ "$status" -eq 0 ]
     [ "$output" = "net.ipv4.conf.default.secure_redirects = 0" ]
-    run bash -c "grep \"net\.ipv4\.conf\.all\.secure_redirects\" /etc/sysctl.conf /etc/sysctl.d/*"
+    run bash -c "grep ""net\.ipv4\.conf\.all\.secure_redirects"" /etc/sysctl.conf /etc/sysctl.d/*"
     [ "$status" -eq 0 ]
     # Check if the desired output line is active in any of the conf files
     local CONF_FILE_CORRECT=0
     while IFS= read -r line; do
-        if [[ "$line" == *":net.ipv4.conf.all.secure_redirects = 0" ]]; then
+        if [[ "$line" == *":net.ipv4.conf.all.secure_redirects=0" ]]; then
             CONF_FILE_CORRECT=1
         fi
     done <<< "$output"
     [ $CONF_FILE_CORRECT -eq 1 ]
-    run bash -c "grep \"net\.ipv4\.conf\.default\.secure_redirects\" /etc/sysctl.conf /etc/sysctl.d/*"
+    run bash -c "grep ""net\.ipv4\.conf\.default\.secure_redirects"" /etc/sysctl.conf /etc/sysctl.d/*"
     [ "$status" -eq 0 ]
     # Check if the desired output line is active in any of the conf files
     local CONF_FILE_CORRECT=0
     while IFS= read -r line; do
-        if [[ "$line" == *":net.ipv4.conf.default.secure_redirects = 0" ]]; then
+        if [[ "$line" == *":net.ipv4.conf.default.secure_redirects=0" ]]; then
             CONF_FILE_CORRECT=1
         fi
     done <<< "$output"
