@@ -47,12 +47,12 @@
 #    [ "$status" -eq 0 ]
 #    [[ "$output" == "" ]]
 #}
-
-@test "6.2.9 Ensure users own their home directories (Scored)" {
-    run "$BATS_TEST_DIRNAME"/6.2.9.sh
-    [ "$status" -eq 0 ]
-    [[ "$output" == "" ]]
-}
+## Not scored
+#@test "6.2.9 Ensure users own their home directories (Scored)" {
+#    run "$BATS_TEST_DIRNAME"/6.2.9.sh
+#    [ "$status" -eq 0 ]
+#    [[ "$output" == "" ]]
+#}
 
 @test "6.2.10 Ensure users' dot files are not group or world writable (Scored)" {
     run "$BATS_TEST_DIRNAME"/6.2.10.sh
