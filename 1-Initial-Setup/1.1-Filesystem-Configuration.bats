@@ -106,18 +106,18 @@
     [ "$status" -eq 1 ]
     [ "$output" = "" ]
 }
+###lvl2
+#@test "1.1.6 Ensure separate partition exists for /var (Scored)" {
+#    run bash -c "mount | grep -E '\s/var\s'"
+#    [ "$status" -eq 0 ]
+#    [[ "$output" = *" /var "* ]]
+#}
 
-@test "1.1.6 Ensure separate partition exists for /var (Scored)" {
-    run bash -c "mount | grep -E '\s/var\s'"
-    [ "$status" -eq 0 ]
-    [[ "$output" = *" /var "* ]]
-}
-
-@test "1.1.7 Ensure separate partition exists for /var/tmp (Scored)" {
-    run bash -c "mount | grep /var/tmp"
-    [ "$status" -eq 0 ]
-    [[ "$output" = *" /var/tmp "* ]]
-}
+#@test "1.1.7 Ensure separate partition exists for /var/tmp (Scored)" {
+#    run bash -c "mount | grep /var/tmp"
+#    [ "$status" -eq 0 ]
+#    [[ "$output" = *" /var/tmp "* ]]
+#}
 
 @test "1.1.8 Ensure nodev option set on /var/tmp partition (Scored)" {
     run bash -c "mount | grep -E '\s/var/tmp\s' | grep -v nodev"
@@ -136,24 +136,24 @@
     [ "$status" -eq 1 ]
     [ "$output" = "" ]
 }
+###lvl2
+#@test "1.1.11 Ensure separate partition exists for /var/log (Scored)" {
+#    run bash -c "mount | grep /var/log"
+#    [ "$status" -eq 0 ]
+#    [[ "$output" = *" /var/log "* ]]
+#}
 
-@test "1.1.11 Ensure separate partition exists for /var/log (Scored)" {
-    run bash -c "mount | grep /var/log"
-    [ "$status" -eq 0 ]
-    [[ "$output" = *" /var/log "* ]]
-}
+#@test "1.1.12 Ensure separate partition exists for /var/log/audit (Scored)" {
+#    run bash -c "mount | grep /var/log/audit"
+#    [ "$status" -eq 0 ]
+#    [[ "$output" = *" /var/log/audit "* ]]
+#}
 
-@test "1.1.12 Ensure separate partition exists for /var/log/audit (Scored)" {
-    run bash -c "mount | grep /var/log/audit"
-    [ "$status" -eq 0 ]
-    [[ "$output" = *" /var/log/audit "* ]]
-}
-
-@test "1.1.13 Ensure separate partition exists for /home (Scored)" {
-    run bash -c "mount | grep /home"
-    [ "$status" -eq 0 ]
-    [[ "$output" = *" /home "* ]]
-}
+#@test "1.1.13 Ensure separate partition exists for /home (Scored)" {
+#    run bash -c "mount | grep /home"
+#    [ "$status" -eq 0 ]
+#    [[ "$output" = *" /home "* ]]
+#}
 
 @test "1.1.14 Ensure nodev option set on /home partition (Scored)" {
     run bash -c "mount | grep -E '\s/home\s' | grep -v nodev"
