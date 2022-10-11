@@ -41,12 +41,12 @@
     [ "$status" -eq 0 ]
     [[ "$output" == "" ]]
 }
-
-@test "6.2.8 Ensure users' home directories permissions are 750 or more restrictive (Scored)" {
-    run "$BATS_TEST_DIRNAME"/6.2.8.sh
-    [ "$status" -eq 0 ]
-    [[ "$output" == "" ]]
-}
+## Not Scored
+#@test "6.2.8 Ensure users' home directories permissions are 750 or more restrictive (Scored)" {
+#    run "$BATS_TEST_DIRNAME"/6.2.8.sh
+#    [ "$status" -eq 0 ]
+#    [[ "$output" == "" ]]
+#}
 
 @test "6.2.9 Ensure users own their home directories (Scored)" {
     run "$BATS_TEST_DIRNAME"/6.2.9.sh
