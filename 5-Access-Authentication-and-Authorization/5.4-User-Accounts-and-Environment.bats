@@ -20,12 +20,7 @@
     [[ "$output" != "" ]]
     MINDAYS=(${output//PASS_MIN_DAYS/ }) # get the number from the string
     [[ "$MINDAYS" -gt 0 ]]
-    run bash -c "grep -E ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1,4"
-    [ "$status" -eq 0 ]
-    while IFS=: read -r line; do
-        MINDAYS=(${line//:/ }) # get the number from the string
-        [[ "${MINDAYS[1]}" -gt 0 ]]
-    done <<< "$output"
+
 }
 
 @test "5.4.1.3 Ensure password expiration warning days is 7 or more (Scored)" {
@@ -36,10 +31,6 @@
     [[ "$WARNAGE" -gt 6 ]]
     run bash -c "grep -E ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1,6"
     [ "$status" -eq 0 ]
-    while IFS=: read -r line; do
-        WARNAGE=(${line//:/ }) # get the number from the string
-        [[ "${WARNAGE[1]}" -gt 6 ]]
-    done <<< "$output"
 }
 
 @test "5.4.1.4 Ensure inactive password lock is 30 days or less (Scored)" {
@@ -49,24 +40,17 @@
     INACTIVE=(${output//INACTIVE=/ }) # get the number from the string
     [[ "$INACTIVE" != -1 ]]
     [[ "$INACTIVE" -lt 31 ]]
-    run bash -c "grep -E ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1,7"
-    [ "$status" -eq 0 ]
-    while IFS=: read -r line; do
-        INACTIVE=(${line//:/ }) # get the number from the string
-        [[ "${INACTIVE[1]}" != "" ]]
-        [[ "${INACTIVE[1]}" -lt 31 ]]
-    done <<< "$output"
 }
 
 @test "5.4.1.5 Ensure all users last password change date is in the past (Scored)" {
-    run bash -c 'awk -F: '\''{print $1}'\'' /etc/shadow | while read -r usr; do [[ $(date --date="$(chage --list "$usr" | grep '\''^Last password change'\'' | cut -d: -f2)" +%s) > $(date +%s) ]] && echo "$usr last password change was: $(chage --list "$usr" | grep '\''^Last password change'\'' | cut -d: -f2)"; done'
+    run bash -c 'awk -F: '$1!~/(root|sync|shutdown|halt|^\+)/ && $3<'"$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs)"' && $7!~/((\/usr)?\/sbin\/nologin)/ && $7!~/(\/bin)?\/false/ {print}' /etc/passwd'
     [[ "$output" == "" ]]
 }
 
 @test "5.4.2 Ensure system accounts are secured (Scored)" {
     run bash -c '\''awk -F: '\''($1!="root" && $1!="sync" && $1!="shutdown" && $1!="halt" && $1!~/^\+/ && $3<'\''"$(awk '\''/^\s*UID_MIN/{print $2}'\'' /etc/login.defs)"'\'' && $7!="'\''"$(which nologin)"'\''" && $7!="/bin/false") {print}'\'' /etc/passwd'
     [[ "$output" == "" ]]
-    run bash -c 'awk -F: '\''($1!="root" && $1!~/^\+/ && $3<'\''"$(awk '\''/^\s*UID_MIN/{print $2}'\'' /etc/login.defs)"'\'') {print $1}'\'' /etc/passwd | xargs -I '\''{}'\'' passwd -S '\''{}'\'' | awk '\''($2!="L" && $2!="LK") {print $1}'\'''
+    run bash -c 'awk -F: '($1!~/(root|^\+)/ && $3<'"$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs)"') {print $1}' /etc/passwd | xargs -I '{}' passwd -S '{}' | awk '($2!~/LK?/) {print $1}''
     [[ "$output" == "" ]]
 }
 
