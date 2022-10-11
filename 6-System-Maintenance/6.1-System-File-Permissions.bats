@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-@test "6.1.1 Audit system file permissions (Not Scored)" {
+@test "6.1.1 Audit system file permissions (Scored)" {
     local packages
     packages=$(dpkg --get-selections | grep install | awk '{split($0, a, "\t"); split(a[1], b, ":"); print b[1]}')
 
