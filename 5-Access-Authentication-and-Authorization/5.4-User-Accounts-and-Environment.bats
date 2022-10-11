@@ -50,8 +50,6 @@
 @test "5.4.2 Ensure system accounts are secured (Scored)" {
     run bash -c '\''awk -F: '\''($1!="root" && $1!="sync" && $1!="shutdown" && $1!="halt" && $1!~/^\+/ && $3<'\''"$(awk '\''/^\s*UID_MIN/{print $2}'\'' /etc/login.defs)"'\'' && $7!="'\''"$(which nologin)"'\''" && $7!="/bin/false") {print}'\'' /etc/passwd'
     [[ "$output" == "" ]]
-    run bash -c 'awk -F: '($1!~/(root|^\+)/ && $3<''"$(awk ''/^\s*UID_MIN/{print $2}'' /etc/login.defs)"'') {print $1}' /etc/passwd | xargs -I '{}' passwd -S '{}' | awk '($2!~/LK?/) {print $1}''
-    [[ "$output" == "" ]]
 }
 
 @test "5.4.3 Ensure default group for the root account is GID 0 (Scored)" {
