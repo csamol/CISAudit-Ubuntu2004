@@ -16,23 +16,23 @@
         [[ "$RETRIES" == "password"*"requisite"*"retry="[0-3] ]]
     fi
 }
+# Not a part of v1.1.0 and level 1
+# @test "5.3.2 Ensure lockout for failed password attempts is configured (Scored)" {
+#     run bash -c "grep \"pam_tally2\" /etc/pam.d/common-auth"
+#     [ "$status" -eq 0 ]
+#     [[ "$output" == "auth required pam_tally2.so onerr=fail audit silent deny=5 unlock_time=900" ]]
+#     run bash -c "grep -E \"pam_(tally2|deny)\.so\" /etc/pam.d/common-account"
+#     [ "$status" -eq 0 ]
+#     [[ "$output" == *"account"*"requisite"*"pam_deny.so"* ]]
+#     [[ "$output" == *"account"*"required"*"pam_tally2.so"* ]]
+# }
 
-@test "5.3.2 Ensure lockout for failed password attempts is configured (Scored)" {
-    run bash -c "grep \"pam_tally2\" /etc/pam.d/common-auth"
-    [ "$status" -eq 0 ]
-    [[ "$output" == "auth required pam_tally2.so onerr=fail audit silent deny=5 unlock_time=900" ]]
-    run bash -c "grep -E \"pam_(tally2|deny)\.so\" /etc/pam.d/common-account"
-    [ "$status" -eq 0 ]
-    [[ "$output" == *"account"*"requisite"*"pam_deny.so"* ]]
-    [[ "$output" == *"account"*"required"*"pam_tally2.so"* ]]
-}
-
-@test "5.3.3 Ensure password reuse is limited (Scored)" {
-    local REMEMBER=$(grep -E '^password\s+required\s+pam_pwhistory.so' /etc/pam.d/common-password)
-    [[ "$REMEMBER" != "" ]]
-    REMEMBER=(${REMEMBER//password required pam_pwhistory.so remember=/ }) # get the number from the string
-    [[ "$REMEMBER" -gt 4 ]]
-}
+# @test "5.3.3 Ensure password reuse is limited (Scored)" {
+#     local REMEMBER=$(grep -E '^password\s+required\s+pam_pwhistory.so' /etc/pam.d/common-password)
+#     [[ "$REMEMBER" != "" ]]
+#     REMEMBER=(${REMEMBER//password required pam_pwhistory.so remember=/ }) # get the number from the string
+#     [[ "$REMEMBER" -gt 4 ]]
+# }
 
 @test "5.3.4 Ensure password hashing algorithm is SHA-512 (Scored)" {
     run bash -c "grep -E '^\s*password\s+(\S+\s+)+pam_unix\.so\s+(\S+\s+)*sha512\s*(\S+\s*)*(\s+#.*)?$' /etc/pam.d/common-password"
