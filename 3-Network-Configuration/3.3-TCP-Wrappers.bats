@@ -6,9 +6,9 @@
 #    [ "$status" -eq 0 ]
 #}
 
-@test "3.3.2 Ensure /etc/hosts.allow is configured (Not Scored)" {
-    skip "This audit has to be done manually"
-}
+#@test "3.3.2 Ensure /etc/hosts.allow is configured (Not Scored)" {
+#    skip "This audit has to be done manually"
+#}
 
 #level 2 part
 #@test "3.3.3 Ensure /etc/hosts.deny is configured (Not Scored)" {
