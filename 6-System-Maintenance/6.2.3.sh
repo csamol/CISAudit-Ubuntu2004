@@ -1,6 +1,6 @@
 #!/bin/bash
-grep -E -v '^(halt|sync|shutdown)' /etc/passwd | awk -F: '($7 != "'"$(which nologin)"'" && $7 != "/bin/false") { print $1 " " $6 }' | while read -r user dir; do
-  if [ ! -d "$dir" ]; then
-    echo "The home directory $dir of user $user does not exist."
-  fi
+awk -F: '($1!~/(halt|sync|shutdown|nfsnobody)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) { print $1 " " $6 }' /etc/passwd | while read -r user dir; do
+if [ ! -d "$dir" ]; then
+echo "User: \"$user\" home directory: \"$dir\" does not
+exist." fi
 done
