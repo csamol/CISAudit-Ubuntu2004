@@ -90,28 +90,29 @@
         done <<< "$output"
     fi
 }
+# Cant be used as the rule is prohibiting userdata to run
+# @test "5.4.5 Ensure default user shell timeout is 900 seconds or less (Scored)" {
+#     run bash -c "grep -E -i \"^\s*(\S+\s+)*TMOUT=(900|[1-8][0-9][0-9]|[1-9][0-9]|[1-9])\s*(\S+\s*)*(\s+#.*)?$\" /etc/bash.bashrc"
+#     [ "$status" -eq 0 ]
+#     echo "# $output" >&3
+#     [[ "$output" = *"TMOUT=900"[^0-9]* ]] || [[ "$output" = *"TMOUT="[1-8][0-9][0-9][^0-9]* ]] || [[ "$output" = *"TMOUT="[1-9][0-9][^0-9]* ]] || [[ "$output" = *"TMOUT="[1-9][^0-9]* ]]
+#     run bash -c "grep -E -i \"^\s*(\S+\s+)*TMOUT=(900|[1-8][0-9][0-9]|[1-9][0-9]|[1-9])\s*(\S+\s*)*(\s+#.*)?$\" /etc/profile /etc/profile.d/*.sh"
+#     [ "$status" -eq 0 ]
+#     [[ "$output" = *"TMOUT=900"[^0-9]* ]] || [[ "$output" = *"TMOUT="[1-8][0-9][0-9][^0-9]* ]] || [[ "$output" = *"TMOUT="[1-9][0-9][^0-9]* ]] || [[ "$output" = *"TMOUT="[1-9][^0-9]* ]]
+# }
 
-@test "5.4.5 Ensure default user shell timeout is 900 seconds or less (Scored)" {
-    run bash -c "grep -E -i \"^\s*(\S+\s+)*TMOUT=(900|[1-8][0-9][0-9]|[1-9][0-9]|[1-9])\s*(\S+\s*)*(\s+#.*)?$\" /etc/bash.bashrc"
-    [ "$status" -eq 0 ]
-    echo "# $output" >&3
-    [[ "$output" = *"TMOUT=900"[^0-9]* ]] || [[ "$output" = *"TMOUT="[1-8][0-9][0-9][^0-9]* ]] || [[ "$output" = *"TMOUT="[1-9][0-9][^0-9]* ]] || [[ "$output" = *"TMOUT="[1-9][^0-9]* ]]
-    run bash -c "grep -E -i \"^\s*(\S+\s+)*TMOUT=(900|[1-8][0-9][0-9]|[1-9][0-9]|[1-9])\s*(\S+\s*)*(\s+#.*)?$\" /etc/profile /etc/profile.d/*.sh"
-    [ "$status" -eq 0 ]
-    [[ "$output" = *"TMOUT=900"[^0-9]* ]] || [[ "$output" = *"TMOUT="[1-8][0-9][0-9][^0-9]* ]] || [[ "$output" = *"TMOUT="[1-9][0-9][^0-9]* ]] || [[ "$output" = *"TMOUT="[1-9][^0-9]* ]]
-}
+# @test "5.5 Ensure root login is restricted to system console (Not Scored)" {
+#     skip "This audit has to be done manually"
+# }
 
-@test "5.5 Ensure root login is restricted to system console (Not Scored)" {
-    skip "This audit has to be done manually"
-}
-
-@test "5.6 Ensure access to the su command is restricted (Scored)" {
-    run bash -c "grep \"auth required pam_wheel.so use_uid group=\" /etc/pam.d/su"
-    [ "$status" -eq 0 ]
-    [[ "$output" == "auth required pam_wheel.so use_uid group="* ]]
-    local GROUP=(${output//auth required pam_wheel.so use_uid group=/ }) # get the group name from the string
-    [[ "$GROUP" != "" ]]
-    run bash -c "grep $GROUP /etc/group"
-    [ "$status" -eq 0 ]
-    [[ "$output" == "$GROUP:"*":"*":" ]]
-}
+# Cant be used as the rule is prohibiting userdata to run
+# @test "5.6 Ensure access to the su command is restricted (Scored)" {
+#     run bash -c "grep \"auth required pam_wheel.so use_uid group=\" /etc/pam.d/su"
+#     [ "$status" -eq 0 ]
+#     [[ "$output" == "auth required pam_wheel.so use_uid group="* ]]
+#     local GROUP=(${output//auth required pam_wheel.so use_uid group=/ }) # get the group name from the string
+#     [[ "$GROUP" != "" ]]
+#     run bash -c "grep $GROUP /etc/group"
+#     [ "$status" -eq 0 ]
+#     [[ "$output" == "$GROUP:"*":"*":" ]]
+# }
