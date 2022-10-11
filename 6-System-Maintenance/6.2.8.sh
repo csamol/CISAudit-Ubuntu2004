@@ -2,12 +2,20 @@
 awk -F: '($1!~/(halt|sync|shutdown)/ && $7!~/^(\/usr)?\/sbin\/nologin(\/)?$/ && $7!~/(\/usr)?\/bin\/false(\/)?$/) {print $1 " " $6}' /etc/passwd | while read -r user dir
 do
   if [ ! -d "$dir" ]; then
-    echo "User: \"$user\" home directory: \"$dir\" doesn't exist"
+    echo "The home directory ($dir) of user $user does not exist."
   else
-    dirperm=$(stat -L -c "%A" "$dir")
-    if [ "$(echo "$dirperm" | cut -c6)" != "-" ] || [ "$(echo "$dirperm" |
-      cut -c8)" != "-" ] || [ "$(echo "$dirperm" | cut -c9)" != "-" ] || [ "$(echo "$dirperm" | cut -c10)" != "-" ]; then
-      echo "User: \"$user\" home directory: \"$dir\" has permissions: \"$(stat -L -c "%a" "$dir")\""
-    fi 
-   fi
+    dirperm="$(ls -ld "$dir" | cut -f1 -d" ")"
+    if [ "$(echo "$dirperm" | cut -c6)" != "-" ]; then
+      echo "Group Write permission set on the home directory \"$dir\" of user $user"
+    fi
+    if [ "$(echo "$dirperm" | cut -c8)" != "-" ]; then
+      echo "Other Read permission set on the home directory \"$dir\" of user $user"
+    fi
+    if [ "$(echo "$dirperm" | cut -c9)" != "-" ]; then
+      echo "Other Write permission set on the home directory \"$dir\" of user $user"
+    fi
+    if [ "$(echo "$dirperm" | cut -c10)" != "-" ]; then
+      echo "Other Execute permission set on the home directory \"$dir\" of user $user"
+    fi
+  fi
 done
