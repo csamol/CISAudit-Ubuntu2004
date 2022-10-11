@@ -60,7 +60,6 @@
     [[ "$output" == "" ]]
 }
 
-run bash -c 'echo " rules 6.2.11 - 6.2.14 breaking system files " '
 @test "6.2.11 Ensure no users have .forward files (Scored)" {
     run "$BATS_TEST_DIRNAME"/6.2.11.sh
     [ "$status" -eq 0 ]
