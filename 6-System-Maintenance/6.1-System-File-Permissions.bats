@@ -72,18 +72,18 @@
 
 @test "6.1.12 Ensure no ungrouped files or directories exist (Scored)" {
     run bash -c "df --local -P | awk '{if (NR!=1) print $6}' | xargs -I '{}' find '{}' -xdev -nogroup"
-    [ "$status" -eq 1 ]
+    [ "$status" -gt 1 ]
     #[[ "$output" == "" ]]
 }
 
 @test "6.1.13 Audit SUID executables (Not Scored)" {
     run bash -c "df --local -P | awk '{if (NR!=1) print $6}' | xargs -I '{}' find '{}' -xdev -type f -perm -4000"
-    [ "$status" -eq 1 ]
+    [ "$status" -gt 1 ]
     #[[ "$output" == "" ]]
 }
 
 @test "6.1.14 Audit SGID executables (Not Scored)" {
     run bash -c "df --local -P | awk '{if (NR!=1) print $6}' | xargs -I '{}' find '{}' -xdev -type f -perm -2000"
-    [ "$status" -eq 1 ]
+    [ "$status" -gt 1 ]
     #[[ "$output" == "" ]]
 }
